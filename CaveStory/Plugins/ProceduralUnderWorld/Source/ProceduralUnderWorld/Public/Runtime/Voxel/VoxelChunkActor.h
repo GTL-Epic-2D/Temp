@@ -21,7 +21,9 @@ protected:
 
 public:	
 	// Called every frame
-	//virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;public:
+	void SetChunkConfig(int32 InChunkSize, float InVoxelSize);
+	void InitializeChunk();
 	
 private:
 	//void GenerateVoxelChunk();

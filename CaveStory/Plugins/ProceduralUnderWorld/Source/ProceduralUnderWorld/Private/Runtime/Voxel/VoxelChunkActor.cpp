@@ -14,16 +14,25 @@ AVoxelChunkActor::AVoxelChunkActor()
     
 
 }
+void AVoxelChunkActor::SetChunkConfig(int32 InChunkSize, float InVoxelSize)
+{
+    ChunkSize = InChunkSize;
+    VoxelSize = InVoxelSize;
+}
 
 // Called when the game starts or when spawned
 
 void AVoxelChunkActor::BeginPlay()
 {
     Super::BeginPlay();
+    UE_LOG(LogTemp, Display, TEXT("AVoxelChunkActor::BeginPlay()"));
+}
 
+void AVoxelChunkActor::InitializeChunk()
+{
     const int32 NumVoxels = ChunkSize + 1;
     const int32 NumPoints = NumVoxels * NumVoxels * NumVoxels;
-    
+
     TArray<float> ScalarField;
     ScalarField.SetNum(NumPoints);
     GenerateScalarField(ScalarField);
@@ -132,7 +141,6 @@ void AVoxelChunkActor::BeginPlay()
     ProcMeshComp->bUseComplexAsSimpleCollision = false;
     ProcMeshComp->bRenderCustomDepth = false;
 }
-
 
 void AVoxelChunkActor::GenerateScalarField(TArray<float>& OutField)
 {
