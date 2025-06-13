@@ -23,7 +23,6 @@ public:
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;public:
 	void SetChunkConfig(int32 InChunkSize, float InVoxelSize, FVector InOrigin);
-	//void InitializeChunk();
 	void GenerateMeshForLOD(int32 LOD);
 
 private:

@@ -42,5 +42,14 @@ private:
 	UPROPERTY()
 	TArray<AVoxelChunkActor*> SpawnedChunks;
 
+	/*
+	TODO
+	오름차순으로 정렬
+	개수 제한 두기
+	*/
+	UPROPERTY(EditAnywhere, Category = "LOD")
+	TArray<float> LODDistanceThresholds; // 예: [2000, 4000, 6000] → 0~1~2~3
+
+	int32 GetDesiredLOD(float Distance) const;
 	void GenerateChunks();
 };

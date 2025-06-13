@@ -10,6 +10,10 @@ AVoxelChunkManager::AVoxelChunkManager()
 	{
 		ChunkActorClass = AVoxelChunkActor::StaticClass();
 	}
+	if (LODDistanceThresholds.Num() == 0)
+	{
+		LODDistanceThresholds = { 2000.f, 4000.f };
+	}
 }
 
 void AVoxelChunkManager::BeginPlay()
@@ -29,10 +33,7 @@ void AVoxelChunkManager::Tick(float DeltaTime)
 		if (!IsValid(Chunk)) continue;
 
 		float Distance = FVector::Dist(CameraLocation, Chunk->GetActorLocation());
-		//UE_LOG(LogTemp, Display, TEXT("Dist: %f"), Distance);
-		int32 DesiredLOD = 0;
-		if (Distance > 4000.f) DesiredLOD = 2;
-		else if (Distance > 2000.f) DesiredLOD = 1;
+		int32 DesiredLOD = GetDesiredLOD(Distance);
 
 		Chunk->ApplyLOD(DesiredLOD);
 	}
@@ -66,4 +67,13 @@ void AVoxelChunkManager::GenerateChunks()
 			}
 		}
 	}
+}
+int32 AVoxelChunkManager::GetDesiredLOD(float Distance) const
+{
+	for (int32 i = 0; i < LODDistanceThresholds.Num(); ++i)
+	{
+		if (Distance <= LODDistanceThresholds[i])
+			return i;
+	}
+	return LODDistanceThresholds.Num(); // 가장 마지막 LOD
 }
