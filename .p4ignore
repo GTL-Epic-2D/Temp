@@ -43,3 +43,4 @@ Thumbs.db
 
 .p4config
 *.log
+.gitignore
