@@ -15,6 +15,7 @@ class PROCEDURALUNDERWORLD_API AVoxelChunkManager : public AActor
 
 public:
 	AVoxelChunkManager();
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay() override;
